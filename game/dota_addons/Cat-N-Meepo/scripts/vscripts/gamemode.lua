@@ -71,7 +71,46 @@ end
 ]]
 function GameMode:OnAllPlayersLoaded()
   DebugPrint("[BAREBONES] All Players have loaded into the game")
+
+    local spawnVectorEnt = Entities:FindByName(nil, "spawn_loc_babbyroosh")
+    local spawnVector = spawnVectorEnt:GetAbsOrigin()
+    local spawnedUnit = CreateUnitByName("npc_babby_roosh", spawnVector, true, nil, nil, DOTA_TEAM_NEUTRALS)
+
 end
+
+
+
+function GameMode:OnEntityKilled( keys )
+  -- The Unit that was Killed
+  local killedUnit = EntIndexToHScript( keys.entindex_killed )
+  -- The Killing entity
+  local killerEntity = nil
+
+  if keys.entindex_attacker ~= nil then
+    killerEntity = EntIndexToHScript( keys.entindex_attacker )
+  end
+
+  if killedUnit:GetUnitName() == "npc_babby_roosh" then
+    local player = killerEntity:GetPlayerOwner()
+    local pID = player:GetPlayerID()
+      
+    local str = PlayerResource:GetPlayerName(pID) .. " has become Roshan!"
+
+    UTIL_Remove( killerEntity ) -- destroy selected hero
+      PrecacheUnitByNameAsync("npc_dota_hero_sven", --cache new hero
+        function()
+         -- Notifications:TopToAll({hero="npc_dota_hero_meepo", duration=5.0})          
+         Notifications:TopToAll({text=str,duration=5.0})
+          newHero = CreateHeroForPlayer("npc_dota_hero_sven", player) 
+        end, pID);
+  end
+
+
+  if killedUnit:IsRealHero() then 
+  end
+end
+
+
 
 --[[
   This function is called once and only once for every player when they spawn into the game for the first time.  It is also called
@@ -87,8 +126,8 @@ function GameMode:OnHeroInGame(hero)
   hero:SetGold(500, false)
 
   -- These lines will create an item and add it to the player, effectively ensuring they start with the item
-  local item = CreateItem("item_example_item", hero, hero)
-  hero:AddItem(item)
+--  local item = CreateItem("item_example_item", hero, hero)
+ -- hero:AddItem(item)
 
   --[[ --These lines if uncommented will replace the W ability of any hero that loads into the game
     --with the "example_ability" ability

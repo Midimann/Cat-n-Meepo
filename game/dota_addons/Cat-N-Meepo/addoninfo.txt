@@ -1,6 +1,6 @@
 "AddonInfo"
 {
-  "TeamCount" "10"
+  "TeamCount" "20"
   "maps"      "template_map"
   "IsPlayable"  "1"
   "template_map"

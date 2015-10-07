@@ -3,12 +3,12 @@
 {
   "Version" "1"
   
-  "npc_dummy_unit"
+  "npc_babby_roosh"
   {
     // General
     //
-    "BaseClass"         "npc_dota_base_additive"  // Class of entity of link to.
-    "Model"           "models/development/invisiblebox.vmdl"  // Model.
+    "BaseClass"         "npc_dota_creature"  // Class of entity of link to.
+    "Model"           "models/courier/baby_rosh/babyroshan.vmdl"  // Model.
     "SoundSet"          "Creep_Good_Range"          // Name of sound set.
     "Level"           "0"
     "UnitLabel"         "healing_ward"
@@ -72,7 +72,7 @@
 
     // Status
     //----------------------------------------------------------------
-    "StatusHealth"        "1"     // Base health.
+    "StatusHealth"        "10"     // Base health.
     "StatusHealthRegen"     "0"     // Health regeneration rate.
     "StatusMana"        "0"     // Base mana.
     "StatusManaRegen"     "0"     // Mana regeneration rate.
